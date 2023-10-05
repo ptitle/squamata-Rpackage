@@ -4,7 +4,7 @@
 ##' 
 ##' @author Pascal O. Title, Sonal Singhal, Dan Rabosky and others
 ##' 
-##' @references \url{https://github.com/ptitle/squamata}
+##' @references \url{https://github.com/ptitle/squamata-Rpackage}
 ##'
 ##' To cite the squamata package in publications, please cite the data generation paper:
 ##' Our empirical paper
