@@ -16,14 +16,27 @@ of species-level ecological, morphological and other attributes.
 bundled with the package. When functions from this R package are used, a temporary directory is created, into which
 data objects are downloaded. Objects are downloaded only once per R session, so repeated runs of the same function
 will not lead to repeated identical downloads. However, the temporary folder is deleted at the end of the R session.
+
+Major squamate subclades that can be used for subsetting include:
+\code{'Acrodonta', 'Alethinophidia', 'Amphisbaenia', 'Anguiformes', 'Caenophidia', 'Colubriformes', 'Colubrinae', 
+'Colubroidea', 'Colubroides', 'Dipsadinae', 'Episquamata', 'Gekkota', 'Iguania', 'Lacertoidea', 'Pleurodonta', 
+'Scincoidea', 'Scolecophidia', 'Serpentes', 'Teioidea', 'Toxicofera', 'tropicalDipsadines', 'Unidentata'}.
 }
 \references{
-\url{https://github.com/ptitle/squamata}
+\url{https://github.com/ptitle/squamata-Rpackage}
 
 To cite the squamata package in publications, please cite the data generation paper:
 Our empirical paper
 as well as our resources paper:
 Citation of R package paper will go here.
+}
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/ptitle/squamata-Rpackage}
+  \item Report bugs at \url{https://github.com/ptitle/squamata-Rpackage/issues}
+}
+
 }
 \author{
 Pascal O. Title, Sonal Singhal, Dan Rabosky and others

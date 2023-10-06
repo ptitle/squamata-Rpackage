@@ -8,6 +8,7 @@ squamata_alignment(
   species = NULL,
   genus = NULL,
   family = NULL,
+  subclade = NULL,
   geneRegion = NULL,
   concatenate = TRUE,
   includeSphenodon = FALSE,
@@ -20,6 +21,8 @@ squamata_alignment(
 \item{genus}{a vector of genus names that the alignment will be subset to, Default: NULL}
 
 \item{family}{a vector of family names that the alignment will be subset to, Default: NULL}
+
+\item{subclade}{a vector of major squamate subclades that the tree will be subset to, Default: NULL}
 
 \item{geneRegion}{names of gene regions to include, see details. All gene regions included if NULL}
 
@@ -37,16 +40,17 @@ This function will return the multiple sequence alignment used in the inference 
 squamate phylogeny. This alignment can be subset by taxonomy and/or by gene region.
 }
 \details{
-DETAILS
+The list of major subclades that can be used for subsetting are listed under \code{\link{squamata}}.
+
 if \code{geneRegion = NULL}, then all will be returned. Otherwise some combination of the following can be specified:
 \code{'ADNP', 'AHR', 'AKAP9', 'AMEL', 'BACH1', 'BDNF', 'BHLHB2', 'BMP2', 'CAND1', 'CARD4', 'CILP', 'cmos', 
 'COI', 'CXCR4', 'CYTB', 'DLL1', 'ECEL', 'ENC1', 'FSHR', 'FSTL5', 'GALR1', 'GHSR', 'GPR37', 'HLCS', 'INHIBA', 
 'LRRN1', 'LZTSS1', 'MKL1', 'MLL3', 'MSH6', 'ND1', 'ND2', 'ND4', 'NGFB', 'NKTR', 'NTF-3', 'PDC', 'PNN', 'PRLR', 
-	'PTGER4', 'PTPN', 'R35', 'RAG1_firsthalf', 'RAG1_secondhalf', 'RAG2', 'rRNA_12S', 'rRNA_16S', 'SINCAIP', 
-	'SLC30A1', 'SLC8A1', 'SLC8A3', 'TRAF6', 'UBN1', 'VCPIP1', 'ZEB2', 'ZFP36L1'}
+'PTGER4', 'PTPN', 'R35', 'RAG1_firsthalf', 'RAG1_secondhalf', 'RAG2', 'rRNA_12S', 'rRNA_16S', 'SINCAIP', 
+'SLC30A1', 'SLC8A1', 'SLC8A3', 'TRAF6', 'UBN1', 'VCPIP1', 'ZEB2', 'ZFP36L1'}
 
 This function is set up to work with two classes for sequence data: \code{\link[ape]{DNAbin}} class from the
-R package ape, and \code{seqClass = \link[Biostrings]{DNAStringSet}} from the bioconductor Biostrings R package.
+R package ape, and \code{seqClass = \link[Biostrings]{DNAStringSet}} from the \href{https://bioconductor.org/packages/release/bioc/html/Biostrings.html}{bioconductor Biostrings R package}.
 If the latter is desired, then the R package Biostrings must be installed (available via bioconductor, not CRAN).
 Setting \code{seqClass = 'auto'} means the function will preferentially pick \code{DNAStringSet} because it is
 faster, and will fall back on \code{DNAbin} if the Biostrings package is not installed.
@@ -56,6 +60,9 @@ faster, and will fall back on \code{DNAbin} if the Biostrings package is not ins
 
 # get the full concatenated alignment
 squamata_alignment()
+
+# get the full concatenated alignment for Gekkota
+squamata_alignment(subclade = 'Gekkota')
 
 # get the alignment for genus Lerista, and only for gene regions ADNP and ND1
 squamata_alignment(genus = 'Lerista', geneRegion = c('ADNP', 'ND1'), concatenate = FALSE)

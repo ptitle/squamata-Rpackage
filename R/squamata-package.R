@@ -20,6 +20,11 @@
 ##' data objects are downloaded. Objects are downloaded only once per R session, so repeated runs of the same function
 ##' will not lead to repeated identical downloads. However, the temporary folder is deleted at the end of the R session.
 ##' 
+##' Major squamate subclades that can be used for subsetting include:
+##' \code{'Acrodonta', 'Alethinophidia', 'Amphisbaenia', 'Anguiformes', 'Caenophidia', 'Colubriformes', 'Colubrinae', 
+##' 'Colubroidea', 'Colubroides', 'Dipsadinae', 'Episquamata', 'Gekkota', 'Iguania', 'Lacertoidea', 'Pleurodonta', 
+##' 'Scincoidea', 'Scolecophidia', 'Serpentes', 'Teioidea', 'Toxicofera', 'tropicalDipsadines', 'Unidentata'}.
+##' 
 ##' @keywords internal
 ##'
 ##'

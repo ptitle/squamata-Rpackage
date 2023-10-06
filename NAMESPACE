@@ -2,3 +2,5 @@
 
 export(squamata_alignment)
 export(squamata_phylogeny)
+export(squamata_speciationRates)
+export(squamata_traits)
