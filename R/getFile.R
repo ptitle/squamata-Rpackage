@@ -26,7 +26,7 @@
 	# define URL's and filenames
 	
 	if (target == 'squamdat') {
-		targetURL <- "https://www.dropbox.com/scl/fi/sevt47egxottafysliab8/alldat.csv.xz?rlkey=19yv4go09yg90r37yhbmb4ble&dl=1"
+		targetURL <- "https://www.dropbox.com/scl/fi/24kf94a8w28zoz7u1azi5/alldat.csv.xz?rlkey=rfaiwuvlgtk4axwhhfoxg7o39&dl=1"
 		targetFile <- "alldat.csv.xz"
 		
 	} else if (target == 'ultrametric') {
@@ -72,6 +72,7 @@
 	} else if (target == 'geneIndex') {
 		targetURL <- "https://www.dropbox.com/scl/fi/ij2nahoa1rk2d6gy9p7w8/geneIndex.csv.xz?rlkey=qwsdr0cck44uzgxzumdjprafe&dl=1"
 		targetFile <- "geneIndex.csv.xz"
+
 	}
 		
 	# Directory is a temporary session-specific location. It will be deleted at the end of the R session.
@@ -97,6 +98,73 @@
 	return(output)
 }
 
+
+.getRepDBfiles <- function(version = 'latest') {
+	
+	# get the links table
+	tableURL <- 'https://www.dropbox.com/scl/fi/vtmqc3ml2wqp63s23jlv0/repDBlinks.csv.xz?rlkey=wedvjv6ynq3t4fjfta6rrlpdb&dl=1'
+	tableFile <- 'repDBlinks.csv.xz'
+	
+	# Directory is a temporary session-specific location. It will be deleted at the end of the R session.
+	tableFile <- file.path(tempdir(), tableFile)
+	
+	# Download the table if it has not yet been downloaded.
+	if (!file.exists(tableFile)) {
+		xx <- try(suppressWarnings(utils::download.file(url = tableURL, destfile = tableFile, quiet = TRUE)), silent = TRUE)
+		if (inherits(xx, 'try-error')) stop('Download failed.')
+	}
+	
+	linksTable <- utils::read.csv(xzfile(tableFile))
+	
+	if (version != '') {
+	
+		# version must be either 'latest' or month_year
+		if (version != 'latest' & !grepl('[0-9]{1,2}_[0-9]{4}', version)) {
+			stop('version not recognized.')
+		}
+		
+		linksTable$date <- as.Date(paste(1, linksTable$month, linksTable$year, sep = '-'), format = '%e-%m-%Y')
+		linksTable <- linksTable[order(linksTable$date, decreasing = TRUE),]
+		
+		if (version == 'latest') {
+			ind <- which(linksTable$date == linksTable$date[1])
+			version <- paste(linksTable$month[ind[1]], linksTable$year[ind][1], sep = '_')
+		} else {
+			ind <- which(linksTable$month == strsplit(version, '_')[[1]][1] & linksTable$year == strsplit(version, '_')[[1]][2])
+		}
+		
+		# download files if they are not already present
+		urls <- linksTable[ind, 'link']
+		files <- linksTable[ind, 'filename']
+		files <- file.path(tempdir(), files)
+		
+		# Download the file if it has not yet been downloaded.
+		for (i in 1:length(urls)) {
+			if (!file.exists(files[i])) {
+				xx <- try(suppressWarnings(utils::download.file(url = urls[i], destfile = files[i], quiet = TRUE)), silent = TRUE)
+				if (inherits(xx, 'try-error')) stop('Download failed.')
+			} 
+		}
+	
+		# list.files(tempdir())
+		
+		# now read in those files
+		acceptedNamesTable <- utils::read.csv(xzfile(files[grep('accepted', basename(files), ignore.case = TRUE)]))
+		subspeciesTable <- utils::read.csv(xzfile(files[grep('subspecies', basename(files), ignore.case = TRUE)]))
+		synonymTable <- utils::read.csv(xzfile(files[grep('synonym', basename(files), ignore.case = TRUE)]))
+		
+		# place in special environment to make them available
+		## include version in environment too
+		assign('acceptedNames', acceptedNamesTable, envir = .repDBvar)
+		assign('subspecies', subspeciesTable, envir = .repDBvar)
+		assign('synonyms', synonymTable, envir = .repDBvar)
+		
+		## how to add to the package environment
+		assign('version', version, envir = .repDBvar)
+	} else {
+		return(linksTable)
+	}
+}
 
 
 

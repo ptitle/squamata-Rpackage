@@ -1,29 +1,42 @@
 ##' @title squamata R package
 ##'
-##' @description An R package to facilitate access to squamate phylogeny and macroevolution resources.
+##' @description An R package to facilitate access to squamate phylogeny and resources, 
+##' including taxonomic resolution via the Reptile Database.
 ##' 
 ##' @author Pascal O. Title, Sonal Singhal, Dan Rabosky and others
-##' 
-##' @references \url{https://github.com/ptitle/squamata-Rpackage}
 ##'
-##' To cite the squamata package in publications, please cite the data generation paper:
-##' Our empirical paper
-##' as well as our resources paper:  
-##' Citation of R package paper will go here.
-##' 
 ##' @details
-##' This R package provides access to a number of different types of phylogenies, as well as a compilation 
-##' of species-level ecological, morphological and other attributes. 
+##' This R package provides access to a number of different types of phylogenies, multiple sequence alignments, 
+##' as well as a compilation of species-level ecological, morphological and other attributes. Also included are tools for interfacing with a pre-processed version of taxonomy and synonym from Reptile Database (\url{https://reptile-database.reptarium.cz/}). 
 ##' 
 ##' \strong{Note that an internet connection is required for use of this package}, as data are downloaded rather than 
 ##' bundled with the package. When functions from this R package are used, a temporary directory is created, into which
 ##' data objects are downloaded. Objects are downloaded only once per R session, so repeated runs of the same function
-##' will not lead to repeated identical downloads. However, the temporary folder is deleted at the end of the R session.
+##' will not lead to repeated identical downloads. However, the temporary folder is deleted at the end of the R session. This also means that the first use of a function will be a bit slower than subsequent runs.
 ##' 
 ##' Major squamate subclades that can be used for subsetting include:
 ##' \code{'Acrodonta', 'Alethinophidia', 'Amphisbaenia', 'Anguiformes', 'Caenophidia', 'Colubriformes', 'Colubrinae', 
 ##' 'Colubroidea', 'Colubroides', 'Dipsadinae', 'Episquamata', 'Gekkota', 'Iguania', 'Lacertoidea', 'Pleurodonta', 
 ##' 'Scincoidea', 'Scolecophidia', 'Serpentes', 'Teioidea', 'Toxicofera', 'tropicalDipsadines', 'Unidentata'}.
+
+##' 
+##' @references
+##' To cite the squamata package in publications, please cite as: \cr
+##'	- *Citation of R package paper will go here.*
+##'
+##' If you make use of any of the phylogenies, sequence alignments or ecomorphological datasets, 
+##' please cite the data generation paper: \cr
+##' Title P.O., Singhal S., Grundler M.C., Costa G.C., Pyron R.A., Colston T.J., Grundler M.R., 
+##' Prates I., Stepanova N., Jones M.E.H., Cavalcanti L.B.Q., Colli G.R., Di-Poï N., Donnellan S.C., 
+##' Moritz C., Mesquita D.O., Pianka E.R., Smith S.A., Vitt L.J., Rabosky D.L. 2024. 
+##' The macroevolutionary singularity of snakes. *Science* **383**, 918-923 (2024). DOI:10.1126/science.adh2449
+##'
+##' If you make use of the Reptile Database functions, please be sure to cite the database:\cr
+##' Uetz, P., Freed, P, Aguilar, R., Reyes, F., Kudera, J. & Hošek, J. (eds.) (2023) The Reptile Database, 
+##' \url{http://www.reptile-database.org}, accessed MONTH YEAR
+##' 
+##' 
+##' 
 ##' 
 ##' @keywords internal
 ##'
