@@ -26,7 +26,7 @@
 	# define URL's and filenames
 	
 	if (target == 'squamdat') {
-		targetURL <- "https://www.dropbox.com/scl/fi/24kf94a8w28zoz7u1azi5/alldat.csv.xz?rlkey=rfaiwuvlgtk4axwhhfoxg7o39&dl=1"
+		targetURL <- "https://github.com/ptitle/squamata-Rpackage/raw/main/compressedDataFiles/alldat.csv.xz"
 		targetFile <- "alldat.csv.xz"
 		
 	} else if (target == 'ultrametric') {
