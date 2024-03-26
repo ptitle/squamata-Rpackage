@@ -25,7 +25,8 @@ reptileDB_synonymsFromAccepted <- function(sp, version = 'latest') {
 	## if not, or if new version is requested, load it
 	if (version == 'latest') {
 		versionList <- reptileDB_versions()
-		version <- paste(versionList$month[1], versionList$year[1], sep = '_')
+		version <- versionList$version[1]
+		# version <- paste(versionList$month[1], versionList$year[1], sep = '_')
 	}
 	if (length(names(.repDBvar)) == 0 | !identical(version, .repDBvar$version)) {
 		.getRepDBfiles(version)

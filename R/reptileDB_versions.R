@@ -16,10 +16,10 @@ reptileDB_versions <- function() {
 	
 	xx$date <- as.Date(paste(1, xx$month, xx$year, sep = '-'), format = '%e-%m-%Y')
 	xx <- xx[order(xx$date, decreasing = TRUE),]
-	xx <- xx[, c('month', 'year')]
+	xx <- xx[, c('month', 'year', 'version')]
 	
 	if (length(names(.repDBvar)) == 4) {
-		xx$loaded <- paste(xx$month, xx$year, sep = '_') == .repDBvar$version
+		xx$loaded <- xx$version == .repDBvar$version
 	} else {
 		xx$loaded <- FALSE
 	}
@@ -36,7 +36,7 @@ isVersionValid <- function(version) {
 
 	if (version == 'latest') {
 		versionList <- reptileDB_versions()
-		version <- paste(versionList$month[1], versionList$year[1], sep = '_')
+		version <- versionList$version[1]
 	}
 	
 	version %in% paste(xx$month, xx$year, sep = '_')
