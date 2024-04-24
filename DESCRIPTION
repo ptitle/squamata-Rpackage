@@ -4,7 +4,7 @@ Version: 0.0.0.9000
 Authors@R: 
     person("Pascal", "Title", email = "pascal.title@stonybrook.edu", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-6316-0736"))
 Description: Provides access and manipulation of phylogenies, sequence alignments and ecological data for squamate phylogenetic study. Additionally provides tools for squamate synonymy resolution.
-Imports: ape
+Imports: ape, stringdist, pbapply
 Suggests: Biostrings
 License: GPL (>= 3)
 URL: https://github.com/ptitle/squamata-Rpackage

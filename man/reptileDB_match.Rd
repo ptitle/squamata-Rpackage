@@ -9,15 +9,17 @@ reptileDB_match(
   fuzzyThresh = 1,
   alternateEndings = TRUE,
   retainSubspecies = FALSE,
+  extendedSubspeciesSearch = TRUE,
   yearCutoff = 1950,
-  version = "latest"
+  version = "latest",
+  nThreads = -1
 )
 }
 \arguments{
 \item{taxon}{a single taxon name}
 
 \item{fuzzyThresh}{the acceptable number of differences \emph{per} component (genus, sp, subsp) for fuzzy matching.
-If zero, no fuzzy matching. See \code{\link[utils]{adist}}.}
+If zero, no fuzzy matching. See \code{\link[stringdist]{stringdist}}.}
 
 \item{alternateEndings}{allow for testing of alternate latin suffixes when matching to accepted names}
 
@@ -26,10 +28,15 @@ This only pertains to cases where the taxon matches to a known subspecies. As sy
 to Genus_species accepted names (with no subspecies), if a taxon matches to a synonym with subspecies,
 it will still map back to a Genus_species.}
 
+\item{extendedSubspeciesSearch}{If subspecies provided, but no match, should additional searches be attempted.
+See details.}
+
 \item{yearCutoff}{When matching to synonymys, what is the earliest publication year to consider.
 Can be set to NULL to be ignored}
 
 \item{version}{which version of Reptile Database to use. Can be \code{'latest'} or a combination of month and year, such as \code{'3_2024'}. See \code{\link{reptileDB_versions}} for available versions.}
+
+\item{nThreads}{number of threads for parallelization. If negative, will be inferred automatically.}
 }
 \value{
 A dataframe with matches to either accepted taxon names or synonyms.
@@ -40,6 +47,9 @@ If a synonym was listed multiple times with different years under the same accep
 This function will attempt to assign taxon names to a set of Reptile Database accepted names, using both strict and fuzzy matching, and via synonymy.
 }
 \details{
+\emph{Note: The results from this function should be considered as a first pass.} Frequently, additional information
+may be needed to definitively resolve taxonomy (geographic information, morphology, etc).
+
 This function makes the following attempts (assuming all options enabled):
 \itemize{
 \item strict matching to accepted names
@@ -47,9 +57,26 @@ This function makes the following attempts (assuming all options enabled):
 \item fuzzy matching to accepted names
 \item strict matching to synonyms
 \item fuzzy matching to synonyms
+\itemize{
+\item if extendedSubspeciesSearch = TRUE and subspecies present, then repeat previous steps:
+\item 
+\itemize{
+\item with Genus_subspecies (subspecies tested as species name)
+}
+}
+\item 
+\itemize{
+\item with Genus_species (subspecies omitted)
+}
 }
 
+If a taxon has equal fuzzy matching distance to more than one accepted taxon name, then the soundex
+index from the stringdist package will be used to attempt to identify the more likely match according to phonetics.
+
 It is possible to match to both an accepted name and to the synonym of another accepted name.
+
+Note regarding parallelization: Parallelization will only be enabled if a reasonably large number of
+taxa are being evaluated.
 }
 \examples{
 
@@ -73,6 +100,11 @@ reptileDB_match('Phrynosoma coronatum blainvillii')
 
 # multiple hits
 reptileDB_match('Chironius flavolineatus')
+
+# an example where the subspecies doesn't match as a subspecies, 
+# but does as a species
+# (this will not match if extendedSubspeciesSearch = FALSE)
+reptileDB_match('Kinyongia fischeri vosseleri')
 
 # querying multiple taxa
 lapply(c('Coluber_constrictor', 'Anolis saxitilis', 'Xenochrophis flavipunctatus'), reptileDB_match) 
