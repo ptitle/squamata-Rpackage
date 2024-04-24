@@ -22,7 +22,7 @@
 #' 	If a synonym was listed multiple times with different years under the same accepted name, then the oldest authority/year is listed.
 
 #' @details
-#' \emph{Note: The results from this function should be considered as a first pass.} Frequently, additional information
+#' \strong{Note: The results from this function should be considered as a first pass.} Frequently, additional information
 #' 	may be needed to definitively resolve taxonomy (geographic information, morphology, etc).
 #'
 #' This function makes the following attempts (assuming all options enabled):
@@ -32,9 +32,9 @@
 #'	- fuzzy matching to accepted names
 #'	- strict matching to synonyms
 #'	- fuzzy matching to synonyms
-#' 	- if extendedSubspeciesSearch = TRUE and subspecies present, then repeat previous steps:
-#' 	- - with Genus_subspecies (subspecies tested as species name)
-#'  - - with Genus_species (subspecies omitted)
+#'	- if extendedSubspeciesSearch = TRUE and subspecies present, then repeat previous steps:
+#'		- with Genus_subspecies (subspecies tested as species name)
+#'		- with Genus_species (subspecies omitted)
 #' 
 #' If a taxon has equal fuzzy matching distance to more than one accepted taxon name, then the soundex 
 #' index from the stringdist package will be used to attempt to identify the more likely match according to phonetics. 
@@ -138,7 +138,7 @@ reptileDB_match <- function(taxon, fuzzyThresh = 1, alternateEndings = TRUE, ret
 		stop("Accepted names table should not contain NA's.")
 	}
 	if (anyNA(subspeciesTable[, c('genus', 'species', 'subspecies')])) {
-		stop("Accepted names table should not contain NA's.")
+		stop("Subspecies table should not contain NA's.")
 	}
 	
 	

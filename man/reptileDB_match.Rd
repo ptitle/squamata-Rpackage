@@ -47,7 +47,7 @@ If a synonym was listed multiple times with different years under the same accep
 This function will attempt to assign taxon names to a set of Reptile Database accepted names, using both strict and fuzzy matching, and via synonymy.
 }
 \details{
-\emph{Note: The results from this function should be considered as a first pass.} Frequently, additional information
+\strong{Note: The results from this function should be considered as a first pass.} Frequently, additional information
 may be needed to definitively resolve taxonomy (geographic information, morphology, etc).
 
 This function makes the following attempts (assuming all options enabled):
@@ -57,15 +57,9 @@ This function makes the following attempts (assuming all options enabled):
 \item fuzzy matching to accepted names
 \item strict matching to synonyms
 \item fuzzy matching to synonyms
-\itemize{
 \item if extendedSubspeciesSearch = TRUE and subspecies present, then repeat previous steps:
-\item 
 \itemize{
 \item with Genus_subspecies (subspecies tested as species name)
-}
-}
-\item 
-\itemize{
 \item with Genus_species (subspecies omitted)
 }
 }
